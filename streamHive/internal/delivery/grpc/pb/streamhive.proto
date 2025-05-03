@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package streamhive;
+
+option go_package = ".;pb";
+
+service StreamService {
+  rpc Start(StartRequest) returns (StartResponse);
+  rpc Stop(StopRequest) returns (StopResponse);
+  rpc GetStatus(StatusRequest) returns (StatusResponse);
+}
+
+enum JobStatus {
+  UNKNOWN = 0;
+  STARTED = 1;
+  FINISHED = 2;
+  STOPPED = 3;
+  FAILED = 4;
+}
+
+message StartRequest {
+  string stream_url = 1;
+}
+
+message StartResponse {
+  string job_id = 1;
+}
+
+message StopRequest {
+  string job_id = 1;
+}
+
+message StopResponse {
+  JobStatus status = 1;
+}
+
+message StatusRequest {
+  string job_id = 1;
+}
+
+message StatusResponse {
+  JobStatus status = 1;
+}

@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:6
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  streamhive:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NATS_URL: nats://nats:4222
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: streamhive
+      MONGO_COLLECTION: jobs
+      STORAGE_RETENTION: 72h
+    volumes:
+      - ./data:/tmp
+    depends_on:
+      - mongo
+      - nats
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+
+  nats:
+    image: nats:latest
+    command: ["-js"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
+  analyzer:
+    build:
+      context: ./analyzer
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - nats
+    environment:
+      NATS_URL: nats://nats:4222
+    command: ["go", "run", "main.go"]
+
+volumes:
+  mongodata:
