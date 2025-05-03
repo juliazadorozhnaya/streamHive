@@ -14,13 +14,13 @@ type Storage interface {
 	StartCleanupWorker()
 }
 
-// EventPublisher - для взаимодействие с NATS
+// EventPublisher для взаимодействие с NATS
 type EventPublisher interface {
 	Publish(subject string, payload []byte) error
 	Subscribe(subject string, handler func(data []byte)) error
 }
 
-// StateStore - для MongoDB
+// StateStore для MongoDB
 type StateStore interface {
 	SaveJob(jobID, streamURL, status string) error
 	UpdateJobStatus(jobID, status string) error

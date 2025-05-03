@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
-	pb "streamHive/streamHive/internal/delivery/grpc/pb"
+	"streamHive/streamHive/internal/delivery/grpc/pb"
 )
 
 func ServeWithInstance(port string, srv pb.StreamServiceServer) (*grpc.Server, net.Listener) {

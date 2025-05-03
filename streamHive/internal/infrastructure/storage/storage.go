@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// Storage для хранит видеофайлы локально и удаляет их по TTL
+// Storage хранит видеофайлы локально и удаляет их по TTL
 type Storage struct {
 	path      string
 	retention time.Duration

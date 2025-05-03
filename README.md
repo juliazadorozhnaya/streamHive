@@ -32,7 +32,6 @@
 * Публикация статусов:
 
    * `recording.finished`
-   * `video.analyzed`
 
 ### 4. Хранение и ротация видеофайлов
 
@@ -49,7 +48,7 @@
 * Отдельный сервис analyzer (Go + Python)
 * Подписка на `recording.finished`
 * Обработка видео с ML/AI моделью (YOLO)
-* Публикация результата в `video.analyzed`
+* Публикация результата в MongoDB
 
 ---
 
@@ -64,7 +63,7 @@
 
 ---
 
-## Архитектура платформа
+## Архитектура платформы
 
 ![StreamHive Architecture](./docs/architecture.png)
 
